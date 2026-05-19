@@ -1,10 +1,8 @@
-import { config } from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 import * as cheerio from "cheerio";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-config({ path: resolve(__dirname, ".env") });
+process.loadEnvFile(resolve(dirname(fileURLToPath(import.meta.url)), ".env"));
 
 const COOKIE = process.env.OPENCODE_COOKIE;
 

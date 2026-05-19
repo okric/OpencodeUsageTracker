@@ -8,10 +8,57 @@ struct UsageItem {
     let reset: String
 }
 
+// MARK: - Custom Bar View
+
+class UsageBarView: NSView {
+    var items: [UsageItem] = []
+    weak var statusItem: NSStatusItem?
+
+    private let barColors: [NSColor] = [.systemGreen, .systemBlue, .systemOrange]
+
+    func update(with newItems: [UsageItem]) {
+        items = newItems
+        needsDisplay = true
+    }
+
+    override func draw(_ dirtyRect: NSRect) {
+        NSColor.clear.set()
+        bounds.fill()
+
+        guard !items.isEmpty else { return }
+
+        let barCount = min(items.count, 3)
+        let barWidth: CGFloat = 14
+        let gap: CGFloat = 3
+        let totalWidth = CGFloat(barCount) * barWidth + CGFloat(barCount - 1) * gap
+        let startX = (bounds.width - totalWidth) / 2
+        let maxHeight = bounds.height - 8
+        let bottomY: CGFloat = 4
+
+        for i in 0..<barCount {
+            let item = items[i]
+            let barHeight = max(2, maxHeight * CGFloat(item.percent) / 100)
+            let x = startX + CGFloat(i) * (barWidth + gap)
+            let rect = NSRect(x: x, y: bottomY, width: barWidth, height: barHeight)
+
+            let color = i < barColors.count ? barColors[i] : .systemGray
+            color.set()
+            NSBezierPath(roundedRect: rect, xRadius: 2, yRadius: 2).fill()
+        }
+    }
+
+    override func mouseDown(with event: NSEvent) {
+        if let menu = statusItem?.menu {
+            menu.popUp(positioning: nil, at: NSPoint(x: 0, y: bounds.height), in: self)
+        }
+    }
+}
+
 // MARK: - App Delegate
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
+    var barView: UsageBarView!
     var timer: Timer?
     let scriptPath: String
 
@@ -21,9 +68,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        statusItem.button?.title = "⬡ …"
-        statusItem.button?.font = NSFont.monospacedDigitSystemFont(ofSize: 12, weight: .medium)
+        statusItem = NSStatusBar.system.statusItem(withLength: 54)
+
+        barView = UsageBarView(frame: NSRect(x: 0, y: 0, width: 54, height: NSStatusBar.system.thickness))
+        barView.statusItem = statusItem
+        statusItem.view = barView
 
         buildMenu(items: [], loading: true)
         refresh()
@@ -36,7 +85,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Fetch
 
     @objc func refresh() {
-        statusItem.button?.title = "⬡ ..."
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self else { return }
             let items = self.fetchUsage()
@@ -55,11 +103,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return [UsageItem(label: "node not found", percent: 0, reset: "")]
         }
 
-        print("[debug] node: \(node)")
-        print("[debug] script: \(scriptPath)")
-        print("[debug] script exists: \(FileManager.default.fileExists(atPath: scriptPath))")
-        print("[debug] OPENCODE_COOKIE set: \(ProcessInfo.processInfo.environment["OPENCODE_COOKIE"] != nil)")
-
         task.executableURL = URL(fileURLWithPath: node)
         task.arguments = [scriptPath, "--json"]
         task.standardOutput = pipe
@@ -72,13 +115,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         task.waitUntilExit()
 
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        guard let output = String(data: data, encoding: .utf8) else {
-            print("[debug] failed to decode pipe data as UTF-8")
-            return []
-        }
-
-        print("[debug] raw output (\(output.count) chars): \(output)")
-        print("[debug] exit code: \(task.terminationStatus)")
+        guard let output = String(data: data, encoding: .utf8) else { return [] }
 
         return parseOutput(output)
     }
@@ -101,12 +138,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - UI
 
     func updateUI(items: [UsageItem]) {
-        if let first = items.first {
-            let bar = progressBar(percent: first.percent, width: 10)
-            statusItem.button?.title = "⬡ \(bar) \(first.percent)%"
-        } else {
-            statusItem.button?.title = "⬡ err"
-        }
+        barView.update(with: items)
         buildMenu(items: items, loading: false)
     }
 
