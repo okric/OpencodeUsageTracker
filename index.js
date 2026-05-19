@@ -29,13 +29,23 @@ const $ = cheerio.load(html);
 
 const usage = [];
 
+function shortReset(reset) {
+    const days = reset.match(/(\d+)\s*days?/);
+    if (days) return `${days[1]}d`;
+    const hours = reset.match(/(\d+)\s*hours?/);
+    if (hours) return `${hours[1]}h`;
+    const minutes = reset.match(/(\d+)\s*minutes?/);
+    if (minutes) return `${minutes[1]}m`;
+    return "";
+}
+
 $("[data-slot='usage-item']").each((_, el) => {
     const label = $(el).find("[data-slot='usage-label']").text().trim();
     const value = $(el).find("[data-slot='usage-value']").text().trim();
     const reset = $(el).find("[data-slot='reset-time']").text().trim();
     const width = $(el).find("[data-slot='progress-bar']").attr("style") ?? "";
     const percent = parseInt(width.match(/width:\s*(\d+)/)?.[1] ?? "0");
-    usage.push({ label, value, percent, reset });
+    usage.push({ label, value, percent, reset, resetShort: shortReset(reset) });
 });
 
 if (usage.length === 0) {

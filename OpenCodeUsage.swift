@@ -6,6 +6,7 @@ struct UsageItem {
     let label: String
     let percent: Int
     let reset: String
+    let resetShort: String
 }
 
 // MARK: - Custom Bar View
@@ -25,25 +26,39 @@ class UsageBarView: NSView {
         NSColor.clear.set()
         bounds.fill()
 
-        guard !items.isEmpty else { return }
-
         let barCount = min(items.count, 3)
-        let barWidth: CGFloat = 14
+        guard barCount > 0 else { return }
+
+        let barHeight: CGFloat = 4
         let gap: CGFloat = 3
-        let totalWidth = CGFloat(barCount) * barWidth + CGFloat(barCount - 1) * gap
-        let startX = (bounds.width - totalWidth) / 2
-        let maxHeight = bounds.height - 8
-        let bottomY: CGFloat = 4
+        let topPad: CGFloat = 3
+        let leftPad: CGFloat = 6
+        let barWidth: CGFloat = 74
+        let textX = leftPad + barWidth + 3
 
         for i in 0..<barCount {
             let item = items[i]
-            let barHeight = max(2, maxHeight * CGFloat(item.percent) / 100)
-            let x = startX + CGFloat(i) * (barWidth + gap)
-            let rect = NSRect(x: x, y: bottomY, width: barWidth, height: barHeight)
-
             let color = i < barColors.count ? barColors[i] : .systemGray
+            let y = topPad + CGFloat(i) * (barHeight + gap)
+
+            color.withAlphaComponent(0.2).set()
+            NSBezierPath(roundedRect: NSRect(x: leftPad, y: y, width: barWidth, height: barHeight), xRadius: 1.5, yRadius: 1.5).fill()
+
+            let fillWidth = max(2, barWidth * CGFloat(item.percent) / 100)
             color.set()
-            NSBezierPath(roundedRect: rect, xRadius: 2, yRadius: 2).fill()
+            NSBezierPath(roundedRect: NSRect(x: leftPad, y: y, width: fillWidth, height: barHeight), xRadius: 1.5, yRadius: 1.5).fill()
+
+            if !item.resetShort.isEmpty {
+                let text = item.resetShort as NSString
+                let textFont = NSFont.monospacedDigitSystemFont(ofSize: 9, weight: .regular)
+                let textSize = text.size(withAttributes: [.font: textFont])
+                let rowCenter = y + barHeight / 2
+                let textPoint = NSPoint(x: textX, y: rowCenter - textSize.height / 2)
+                text.draw(at: textPoint, withAttributes: [
+                    .font: textFont,
+                    .foregroundColor: NSColor.labelColor,
+                ])
+            }
         }
     }
 
@@ -68,9 +83,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        statusItem = NSStatusBar.system.statusItem(withLength: 54)
+        statusItem = NSStatusBar.system.statusItem(withLength: 110)
 
-        barView = UsageBarView(frame: NSRect(x: 0, y: 0, width: 54, height: NSStatusBar.system.thickness))
+        barView = UsageBarView(frame: NSRect(x: 0, y: 0, width: 110, height: NSStatusBar.system.thickness))
         barView.statusItem = statusItem
         statusItem.view = barView
 
@@ -100,7 +115,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let nodeCandidates = ["/usr/local/bin/node", "/opt/homebrew/bin/node", "/Users/you/.nvm/versions/node/v22.21.0/bin/node"]
         guard let node = nodeCandidates.first(where: { FileManager.default.fileExists(atPath: $0) }) else {
-            return [UsageItem(label: "node not found", percent: 0, reset: "")]
+            return [UsageItem(label: "node not found", percent: 0, reset: "", resetShort: "")]
         }
 
         task.executableURL = URL(fileURLWithPath: node)
@@ -131,7 +146,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                   let percent = dict["percent"] as? Int,
                   let reset = dict["reset"] as? String
             else { return nil }
-            return UsageItem(label: label, percent: percent, reset: reset)
+            let resetShort = dict["resetShort"] as? String ?? ""
+            return UsageItem(label: label, percent: percent, reset: reset, resetShort: resetShort)
         }
     }
 
