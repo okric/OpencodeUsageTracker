@@ -31,10 +31,10 @@ class UsageBarView: NSView {
 
         let barHeight: CGFloat = 4
         let gap: CGFloat = 3
-        let topPad: CGFloat = 3
+        let topPad: CGFloat = 2
         let leftPad: CGFloat = 6
-        let barWidth: CGFloat = 74
-        let textX = leftPad + barWidth + 3
+        let barWidth: CGFloat = 70
+        let textX = leftPad + barWidth + 6
 
         for i in 0..<barCount {
             let item = items[i]
@@ -50,7 +50,7 @@ class UsageBarView: NSView {
 
             if !item.resetShort.isEmpty {
                 let text = item.resetShort as NSString
-                let textFont = NSFont.monospacedDigitSystemFont(ofSize: 9, weight: .regular)
+                let textFont = NSFont.monospacedDigitSystemFont(ofSize: 7, weight: .regular)
                 let textSize = text.size(withAttributes: [.font: textFont])
                 let rowCenter = y + barHeight / 2
                 let textPoint = NSPoint(x: textX, y: rowCenter - textSize.height / 2)
@@ -83,9 +83,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        statusItem = NSStatusBar.system.statusItem(withLength: 110)
+        statusItem = NSStatusBar.system.statusItem(withLength: 120)
 
-        barView = UsageBarView(frame: NSRect(x: 0, y: 0, width: 110, height: NSStatusBar.system.thickness))
+        barView = UsageBarView(frame: NSRect(x: 0, y: 0, width: 120, height: 22))
         barView.statusItem = statusItem
         statusItem.view = barView
 
