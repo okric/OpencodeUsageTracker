@@ -16,8 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let scriptPath: String
 
     override init() {
-        // Path to your Node script — edit this
-        scriptPath = NSHomeDirectory() + "/scripts/opencode-usage.mjs"
+        scriptPath = NSHomeDirectory() + "/WebstormProjects/OpencodeDashboard/index.js"
         super.init()
     }
 
@@ -51,29 +50,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let task = Process()
         let pipe = Pipe()
 
-        // Find node via common paths
         let nodeCandidates = ["/usr/local/bin/node", "/opt/homebrew/bin/node", "/Users/you/.nvm/versions/node/v22.21.0/bin/node"]
         guard let node = nodeCandidates.first(where: { FileManager.default.fileExists(atPath: $0) }) else {
             return [UsageItem(label: "node not found", percent: 0, reset: "")]
         }
 
+        print("[debug] node: \(node)")
+        print("[debug] script: \(scriptPath)")
+        print("[debug] script exists: \(FileManager.default.fileExists(atPath: scriptPath))")
+        print("[debug] OPENCODE_COOKIE set: \(ProcessInfo.processInfo.environment["OPENCODE_COOKIE"] != nil)")
+
         task.executableURL = URL(fileURLWithPath: node)
         task.arguments = [scriptPath, "--json"]
         task.standardOutput = pipe
-        task.standardError = pipe
+        task.standardError = FileHandle.standardError
 
-        // Pass through environment so OPENCODE_COOKIE is available
         let env = ProcessInfo.processInfo.environment
-        // If your cookie isn't in the environment already, hard-code it here:
-        // var env = ProcessInfo.processInfo.environment
-        // env["OPENCODE_COOKIE"] = "your_cookie_value"
         task.environment = env
 
         task.launch()
         task.waitUntilExit()
 
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        guard let output = String(data: data, encoding: .utf8) else { return [] }
+        guard let output = String(data: data, encoding: .utf8) else {
+            print("[debug] failed to decode pipe data as UTF-8")
+            return []
+        }
+
+        print("[debug] raw output (\(output.count) chars): \(output)")
+        print("[debug] exit code: \(task.terminationStatus)")
 
         return parseOutput(output)
     }
