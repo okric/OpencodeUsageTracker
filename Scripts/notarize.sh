@@ -59,6 +59,23 @@ create-dmg \
   --app-drop-link 600 280 \
   --hide-extension "${APP_NAME}.app" \
   "$DMG" "$STAGE_DIR"
+
+echo "== postprocess =="
+APP_NAME="$APP_NAME" "$ROOT/Scripts/postprocess-dmg.sh" "$DMG" "$ROOT/Scripts/dmg-background@2x.png"
+
+echo "== verify (screenshot the mounted window) =="
+MOUNT=$(hdiutil attach "$DMG" | awk -F'\t' '/Volumes/{print $NF}')
+echo "mounted at: $MOUNT"
+sleep 3
+BR=$(osascript -e 'tell application "Finder" to tell disk "'"${MOUNT##*/}"'"
+	set b to bounds of container window
+	return (item 1 of b) & "," & (item 2 of b) & "," & (item 3 of b) & "," & (item 4 of b)
+end tell') || BR="400,200,1200,670"
+echo "window bounds: $BR (expect 400,200,1200,670)"
+screencapture -x -R"${BR},800,470" "$ROOT/build/dmg-check.png" 2>/dev/null || \
+  screencapture -x "$ROOT/build/dmg-check-full.png"
+echo "screenshot: build/dmg-check.png"
+hdiutil detach "$MOUNT" -quiet
 shasum -a 256 "$DMG"
 
 echo "== publish =="
