@@ -4,12 +4,17 @@ A native macOS menu bar app that shows your OpenCode Go usage with no Node.js
 dependencies and no browser cookie. Sits in the menu bar as three compact bars
 (Rolling / Weekly / Monthly usage windows), with a full menu.
 
+![Menu bar item](docs/statusbar.png)
+
+![Settings window](docs/settings.png)
+
 Architecture (shared with DeepSeekUsageTracker):
 
 - `Sources/App` — `@MainActor ObservableObject` model, app lifecycle, launch-at-login
 - `Sources/Core` — CLI credential store + console usage API client
 - `Sources/UI` — status item (three-bar view), menu, settings window
 - `Tests/` — unit tests
+- `docs/` — README screenshots (status bar, settings window)
 
 ## How it works
 
