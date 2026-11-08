@@ -42,14 +42,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         model.start()
 
-        Task {
-            await model.migrateLegacyCookieIfNeeded()
-            let defaults = UserDefaults.standard
-            if !model.hasCookie && !defaults.bool(forKey: "hasLaunchedBefore") {
-                defaults.set(true, forKey: "hasLaunchedBefore")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    settings.show()
-                }
+        let defaults = UserDefaults.standard
+        if model.connectionInfo == nil && !defaults.bool(forKey: "hasLaunchedBefore") {
+            defaults.set(true, forKey: "hasLaunchedBefore")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                settings.show()
             }
         }
     }

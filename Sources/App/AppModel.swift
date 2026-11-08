@@ -7,42 +7,41 @@ import ServiceManagement
 final class AppModel: ObservableObject {
     @Published private(set) var snapshot = UsageSnapshot()
     @Published private(set) var isLoading = false
-    @Published private(set) var hasCookie = false
-    @Published private(set) var workspacePath = OpenCodeClient.defaultWorkspacePath
+    @Published private(set) var connectionInfo: String?
+    @Published private(set) var workspaces: [WorkspaceOption] = []
+    @Published private(set) var selectedOrgID: String?
     @Published private(set) var refreshInterval: TimeInterval = 300
     @Published private(set) var launchAtLogin = false
     @Published private(set) var launchAtLoginNeedsApproval = false
     @Published private(set) var launchAtLoginError: String?
     @Published private(set) var isChangingLaunchAtLogin = false
 
-    private let credentials: KeychainStore
+    struct WorkspaceOption: Identifiable, Equatable {
+        var orgID: String
+        var name: String
+
+        var id: String { orgID }
+        var label: String { name.isEmpty ? orgID : name }
+    }
+
+    private let store: OpenCodeCLIStore
     private let defaults: UserDefaults
 
     private var timer: Timer?
     private var wakeObserver: NSObjectProtocol?
 
     private let refreshKey = "refreshInterval"
-    private let workspaceKey = "workspacePath"
-    private let legacyImportKey = "didImportLegacyEnv"
+    private let orgKey = "orgID"
     private let loginConfiguredKey = "didConfigureLoginItem"
     private let loginItemPathKey = "loginItemPath"
 
-    init(
-        credentials: KeychainStore = KeychainStore(),
-        defaults: UserDefaults = .standard)
-    {
-        self.credentials = credentials
+    init(store: OpenCodeCLIStore = OpenCodeCLIStore(), defaults: UserDefaults = .standard) {
+        self.store = store
         self.defaults = defaults
-
-        hasCookie = credentials.has(.cookie)
-        if let stored = defaults.string(forKey: workspaceKey), !stored.isEmpty {
-            workspacePath = stored
-        }
         let storedInterval = defaults.double(forKey: refreshKey)
         refreshInterval = storedInterval >= 60 ? storedInterval : 300
+        selectedOrgID = defaults.string(forKey: orgKey)
     }
-
-    var needsSetup: Bool { !hasCookie }
 
     // MARK: Lifecycle
 
@@ -72,6 +71,48 @@ final class AppModel: ObservableObject {
         }
     }
 
+    // MARK: Credentials (read fresh from the CLI every time)
+
+    private func loadConnections() -> [CLIConnection] {
+        (try? store.connections()) ?? []
+    }
+
+    private func activeConnection(from connections: [CLIConnection]) -> CLIConnection? {
+        let usable = connections.filter { $0.isValid }
+        guard !usable.isEmpty else { return nil }
+        if let preferredOrg = selectedOrgID,
+           let match = usable.first(where: { $0.orgID == preferredOrg })
+        {
+            return match
+        }
+        return usable.first
+    }
+
+    private func recordWorkspaces(_ connections: [CLIConnection]) {
+        let seen = connections
+            .filter { $0.isValid }
+            .reduce(into: [String: WorkspaceOption]()) { map, connection in
+                if map[connection.orgID] == nil {
+                    map[connection.orgID] = WorkspaceOption(
+                        orgID: connection.orgID,
+                        name: connection.orgName ?? connection.email ?? "")
+                }
+            }
+        workspaces = seen.values.sorted { $0.orgID < $1.orgID }
+
+        if let connection = activeConnection(from: connections) {
+            connectionInfo = connection.accountDescription
+        } else {
+            connectionInfo = nil
+        }
+    }
+
+    func selectWorkspace(_ orgID: String) {
+        selectedOrgID = orgID
+        defaults.set(orgID, forKey: orgKey)
+        refreshNow()
+    }
+
     // MARK: Refresh
 
     func refresh() async {
@@ -79,24 +120,38 @@ final class AppModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
 
-        guard let cookie = credentials.read(.cookie) else {
-            hasCookie = false
-            if !snapshot.hasItems {
-                snapshot = UsageSnapshot()
-                snapshot.error = nil
-            }
+        let connections = loadConnections()
+        recordWorkspaces(connections)
+
+        guard let connection = activeConnection(from: connections) else {
+            var newSnapshot = snapshot
+            newSnapshot.error = CLIStoreError.notInstalled.errorDescription
+            newSnapshot.isStale = newSnapshot.hasItems
+            snapshot = newSnapshot
             return
         }
-        hasCookie = true
 
-        let client = OpenCodeClient(workspacePath: workspacePath, cookie: cookie)
         do {
-            let items = try await client.fetchUsage()
+            let result = try await UsageClient(connection: connection).fetchUsage()
             snapshot = UsageSnapshot(
-                items: items,
+                items: result.items,
+                budgets: result.budgets,
                 updatedAt: Date(),
                 error: nil,
                 isStale: false)
+        } catch OpenCodeUsageError.unauthorized {
+            // The CLI may have refreshed its device link; re-read once.
+            let fresh = loadConnections()
+            recordWorkspaces(fresh)
+            guard let retry = activeConnection(from: fresh) else {
+                var newSnapshot = snapshot
+                newSnapshot.error = OpenCodeUsageError.unauthorized.errorDescription
+                newSnapshot.isStale = newSnapshot.hasItems
+                snapshot = newSnapshot
+                return
+            }
+            retryFetch(connection: retry)
+            return
         } catch {
             var newSnapshot = snapshot
             newSnapshot.error = (error as? LocalizedError)?.errorDescription
@@ -106,76 +161,33 @@ final class AppModel: ObservableObject {
         }
     }
 
+    /// One more attempt after a credential re-read; failures land in the snapshot.
+    private func retryFetch(connection: CLIConnection) {
+        Task {
+            do {
+                let result = try await UsageClient(connection: connection).fetchUsage()
+                await MainActor.run {
+                    snapshot = UsageSnapshot(
+                        items: result.items,
+                        budgets: result.budgets,
+                        updatedAt: Date(),
+                        error: nil,
+                        isStale: false)
+                }
+            } catch {
+                await MainActor.run {
+                    var newSnapshot = snapshot
+                    newSnapshot.error = (error as? LocalizedError)?.errorDescription
+                        ?? error.localizedDescription
+                    newSnapshot.isStale = newSnapshot.hasItems
+                    snapshot = newSnapshot
+                }
+            }
+        }
+    }
+
     func refreshNow() {
         Task { await refresh() }
-    }
-
-    // MARK: Cookie
-
-    /// Saves the cookie after verifying it fetches real usage data.
-    func saveCookie(_ rawValue: String) async throws {
-        let value = rawValue.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !value.isEmpty else { throw OpenCodeError.missingCookie }
-
-        let probe = OpenCodeClient(workspacePath: workspacePath, cookie: value)
-        let items = try await probe.fetchUsage()
-
-        try credentials.save(value, for: .cookie)
-        hasCookie = true
-        snapshot = UsageSnapshot(items: items, updatedAt: Date(), error: nil, isStale: false)
-        scheduleTimer()
-    }
-
-    func removeCookie() {
-        try? credentials.delete(.cookie)
-        hasCookie = false
-        snapshot = UsageSnapshot()
-        refreshNow()
-    }
-
-    // MARK: Legacy .env import
-
-    /// One-time import of OPENCODE_COOKIE from the old Node project's `.env`.
-    /// No-op when the flag was recorded or there is nothing to import.
-    func migrateLegacyCookieIfNeeded() async {
-        guard !hasCookie, !defaults.bool(forKey: legacyImportKey) else { return }
-        guard let cookie = EnvImporter.legacyCookie() else {
-            defaults.set(true, forKey: legacyImportKey)
-            return
-        }
-        defaults.set(true, forKey: legacyImportKey)
-
-        let probe = OpenCodeClient(workspacePath: workspacePath, cookie: cookie)
-        guard let items = try? await probe.fetchUsage() else { return }
-
-        try? credentials.save(cookie, for: .cookie)
-        hasCookie = true
-        snapshot = UsageSnapshot(items: items, updatedAt: Date(), error: nil, isStale: false)
-        scheduleTimer()
-    }
-
-    func importFromEnvFile(at url: URL) async throws -> Bool {
-        guard let cookie = try EnvImporter.cookie(at: url) else { return false }
-        try await saveCookie(cookie)
-        return true
-    }
-
-    // MARK: Workspace
-
-    /// Accepts a full URL or a bare `wrk_…` id; throws when neither.
-    func setWorkspacePath(_ raw: String) throws {
-        let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else {
-            throw OpenCodeError.invalidWorkspaceURL(trimmed)
-        }
-        guard OpenCodeClient.workspaceID(from: trimmed).hasPrefix("wrk_")
-            || URL(string: trimmed) != nil && trimmed.contains("://")
-        else {
-            throw OpenCodeError.invalidWorkspaceURL(trimmed)
-        }
-        workspacePath = trimmed
-        defaults.set(trimmed, forKey: workspaceKey)
-        refreshNow()
     }
 
     // MARK: Refresh interval
@@ -194,6 +206,21 @@ final class AppModel: ObservableObject {
         }
         RunLoop.main.add(newTimer, forMode: .common)
         timer = newTimer
+    }
+
+    // MARK: Links
+
+    /// Opens the workspace activity page the CLI itself links to.
+    @discardableResult
+    func openActivityPage() -> Bool {
+        let connections = loadConnections()
+        guard let connection = activeConnection(from: connections),
+              let url = UsageClient(connection: connection).activityPageURL
+        else {
+            return false
+        }
+        NSWorkspace.shared.open(url)
+        return true
     }
 
     // MARK: Launch at login
@@ -219,6 +246,9 @@ final class AppModel: ObservableObject {
         guard !isChangingLaunchAtLogin else { return }
         isChangingLaunchAtLogin = true
         launchAtLoginError = nil
+        // Optimistic so the toggle slides immediately; refreshLaunchAtLoginStatus
+        // corrects it once the system registers or rejects the login item.
+        launchAtLogin = enabled
         Task {
             defer {
                 isChangingLaunchAtLogin = false
@@ -244,8 +274,6 @@ final class AppModel: ObservableObject {
         SMAppService.openSystemSettingsLoginItems()
     }
 
-    /// The app is installed in /Applications for distribution. On its first launch
-    /// there, opt into launch-at-login once; the Settings toggle remains authoritative.
     private var isInApplicationsFolder: Bool {
         let path = Bundle.main.bundlePath
         let homeApplications = FileManager.default.homeDirectoryForCurrentUser
@@ -282,41 +310,35 @@ final class AppModel: ObservableObject {
         }
     }
 
-    // MARK: Links
-
-    func openWorkspacePage() {
-        let client = OpenCodeClient(workspacePath: workspacePath, cookie: "")
-        guard let url = client.pageURL else { return }
-        NSWorkspace.shared.open(url)
-    }
-
     // MARK: Preview
 
     #if DEBUG
-    /// Deterministic configured state for the Xcode preview canvas.
     static func preview() -> AppModel {
-        let model = AppModel(credentials: KeychainStore(service: "com.opencode.dashboard.preview"))
-        model.hasCookie = true
+        let model = AppModel(store: OpenCodeCLIStore(home: URL(fileURLWithPath: "/nonexistent")))
+        model.connectionInfo = "you@opencode.example — Default Workspace"
+        model.workspaces = [WorkspaceOption(orgID: "wrk_01ExampleWorkspaceID12345678", name: "Default Workspace")]
+        model.selectedOrgID = "wrk_01ExampleWorkspaceID12345678"
+
+        func item(_ label: String, _ percent: Int, _ resetsIn: TimeInterval) -> UsageItem {
+            let date = Date().addingTimeInterval(resetsIn)
+            return UsageItem(
+                label: label,
+                value: "",
+                percent: percent,
+                reset: UsageClient.ZenResponse.resetText(date),
+                resetShort: UsageClient.ZenResponse.resetShort(date))
+        }
+
         model.snapshot = UsageSnapshot(
             items: [
-                UsageItem(
-                    label: "Claude Sonnet 4.5",
-                    value: "$3.42",
-                    percent: 42,
-                    reset: "Resets in 2 days and 7 hours",
-                    resetShort: "2d"),
-                UsageItem(
-                    label: "GPT-5 Codex",
-                    value: "$1.10",
-                    percent: 55,
-                    reset: "Resets in 5 hours",
-                    resetShort: "5h"),
-                UsageItem(
-                    label: "Gemini 3 Flash",
-                    value: "$0.30",
-                    percent: 30,
-                    reset: "Resets in 35 minutes",
-                    resetShort: "35m"),
+                item("Rolling", 42, 5 * 3600),
+                item("Weekly", 55, 26 * 3600),
+                item("Monthly", 30, 30 * 86_400),
+            ],
+            budgets: [
+                Budget(
+                    id: "b1", name: "Workspace budget", limit: 100, spent: 6.87,
+                    coverage: "workspace", resetsText: "Resets in 12d"),
             ],
             updatedAt: Date(),
             error: nil,

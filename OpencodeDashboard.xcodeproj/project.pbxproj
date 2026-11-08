@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A2B3C4D0001000000000012 /* EnvImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000012 /* EnvImporter.swift */; };
-		1A2B3C4D0001000000000013 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000013 /* KeychainStore.swift */; };
+		1A2B3C4D0001000000000013 /* CLIConnectionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000013 /* CLIConnectionStore.swift */; };
 		1A2B3C4D0001000000000014 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000014 /* Models.swift */; };
-		1A2B3C4D0001000000000015 /* OpenCodeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000015 /* OpenCodeClient.swift */; };
-		1A2B3C4D0001000000000016 /* UsageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000016 /* UsageParser.swift */; };
+		1A2B3C4D0001000000000015 /* UsageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000015 /* UsageClient.swift */; };
 		1A2B3C4D0001000000000017 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000017 /* AppModel.swift */; };
 		1A2B3C4D0001000000000018 /* OpencodeDashboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000018 /* OpencodeDashboardApp.swift */; };
 		1A2B3C4D0001000000000019 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000019 /* SettingsView.swift */; };
@@ -19,8 +17,8 @@
 		1A2B3C4D000100000000001B /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D000200000000001B /* StatusItemController.swift */; };
 		1A2B3C4D000100000000001C /* UsageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D000200000000001C /* UsageBarView.swift */; };
 		1A2B3C4D000100000000001D /* Icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D000200000000001D /* Icon.xcassets */; };
-		1A2B3C4D0001000000000021 /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000021 /* KeychainTests.swift */; };
-		1A2B3C4D0001000000000022 /* UsageParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000022 /* UsageParserTests.swift */; };
+		1A2B3C4D0001000000000021 /* CLIConnectionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000021 /* CLIConnectionStoreTests.swift */; };
+		1A2B3C4D0001000000000022 /* UsageClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000022 /* UsageClientTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,11 +32,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1A2B3C4D0002000000000012 /* EnvImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvImporter.swift; sourceTree = "<group>"; };
-		1A2B3C4D0002000000000013 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000013 /* CLIConnectionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIConnectionStore.swift; sourceTree = "<group>"; };
 		1A2B3C4D0002000000000014 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		1A2B3C4D0002000000000015 /* OpenCodeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenCodeClient.swift; sourceTree = "<group>"; };
-		1A2B3C4D0002000000000016 /* UsageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageParser.swift; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000015 /* UsageClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageClient.swift; sourceTree = "<group>"; };
 		1A2B3C4D0002000000000017 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		1A2B3C4D0002000000000018 /* OpencodeDashboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpencodeDashboardApp.swift; sourceTree = "<group>"; };
 		1A2B3C4D0002000000000019 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -46,8 +42,8 @@
 		1A2B3C4D000200000000001B /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
 		1A2B3C4D000200000000001C /* UsageBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageBarView.swift; sourceTree = "<group>"; };
 		1A2B3C4D000200000000001D /* Icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icon.xcassets; sourceTree = "<group>"; };
-		1A2B3C4D0002000000000021 /* KeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTests.swift; sourceTree = "<group>"; };
-		1A2B3C4D0002000000000022 /* UsageParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageParserTests.swift; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000021 /* CLIConnectionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIConnectionStoreTests.swift; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000022 /* UsageClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageClientTests.swift; sourceTree = "<group>"; };
 		1A2B3C4D0003000000000010 /* OpencodeDashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpencodeDashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A2B3C4D0003000000000020 /* OpencodeDashboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpencodeDashboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -65,11 +61,9 @@
 		1A2B3C4D0004000000000011 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				1A2B3C4D0002000000000012 /* EnvImporter.swift */,
-				1A2B3C4D0002000000000013 /* KeychainStore.swift */,
+				1A2B3C4D0002000000000013 /* CLIConnectionStore.swift */,
 				1A2B3C4D0002000000000014 /* Models.swift */,
-				1A2B3C4D0002000000000015 /* OpenCodeClient.swift */,
-				1A2B3C4D0002000000000016 /* UsageParser.swift */,
+				1A2B3C4D0002000000000015 /* UsageClient.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -99,8 +93,8 @@
 		1A2B3C4D0004000000000014 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				1A2B3C4D0002000000000021 /* KeychainTests.swift */,
-				1A2B3C4D0002000000000022 /* UsageParserTests.swift */,
+				1A2B3C4D0002000000000021 /* CLIConnectionStoreTests.swift */,
+				1A2B3C4D0002000000000022 /* UsageClientTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -216,16 +210,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A2B3C4D0001000000000017 /* AppModel.swift in Sources */,
-				1A2B3C4D0001000000000012 /* EnvImporter.swift in Sources */,
-				1A2B3C4D0001000000000013 /* KeychainStore.swift in Sources */,
+				1A2B3C4D0001000000000013 /* CLIConnectionStore.swift in Sources */,
 				1A2B3C4D0001000000000014 /* Models.swift in Sources */,
 				1A2B3C4D0001000000000018 /* OpencodeDashboardApp.swift in Sources */,
-				1A2B3C4D0001000000000015 /* OpenCodeClient.swift in Sources */,
+				1A2B3C4D0001000000000015 /* UsageClient.swift in Sources */,
 				1A2B3C4D0001000000000019 /* SettingsView.swift in Sources */,
 				1A2B3C4D000100000000001A /* SettingsWindowController.swift in Sources */,
 				1A2B3C4D000100000000001B /* StatusItemController.swift in Sources */,
 				1A2B3C4D000100000000001C /* UsageBarView.swift in Sources */,
-				1A2B3C4D0001000000000016 /* UsageParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,8 +225,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A2B3C4D0001000000000021 /* KeychainTests.swift in Sources */,
-				1A2B3C4D0001000000000022 /* UsageParserTests.swift in Sources */,
+				1A2B3C4D0001000000000021 /* CLIConnectionStoreTests.swift in Sources */,
+				1A2B3C4D0001000000000022 /* UsageClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

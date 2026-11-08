@@ -16,8 +16,8 @@ final class StatusItemController: NSObject, NSMenuDelegate {
     init(model: AppModel, openSettings: @escaping () -> Void) {
         self.model = model
         self.openSettings = openSettings
-        self.statusItem = NSStatusBar.system.statusItem(withLength: 120)
-        self.view = UsageBarView(frame: NSRect(x: 0, y: 0, width: 120, height: 22))
+        self.statusItem = NSStatusBar.system.statusItem(withLength: 68)
+        self.view = UsageBarView(frame: NSRect(x: 0, y: 0, width: 68, height: 22))
         super.init()
 
         menu.autoenablesItems = false
@@ -44,7 +44,7 @@ final class StatusItemController: NSObject, NSMenuDelegate {
         let snapshot = model.snapshot
 
         let state: UsageBarView.DisplayState
-        if model.needsSetup {
+        if model.connectionInfo == nil && !model.isLoading {
             state = .setup
         } else if model.isLoading && !snapshot.hasItems {
             state = .loading
@@ -56,13 +56,33 @@ final class StatusItemController: NSObject, NSMenuDelegate {
             state = .normal
         }
 
+        // Fit the item to its content instead of a fixed width; the reset
+        // text is the only thing that needs room on the right.
+        let width = idealWidth(items: snapshot.items, state: state)
+        if statusItem.length != width { statusItem.length = width }
+        view.setFrameSize(NSSize(width: width, height: 22))
+
         view.update(with: snapshot.items, state: state)
         view.toolTip = tooltip(snapshot: snapshot)
         rebuildMenu()
     }
 
+    /// leftPad(4) + bars(60) + gap(4), plus the widest reset countdown when it
+    /// is drawn (normal and loading states); setup and error states omit it.
+    private func idealWidth(items: [UsageItem], state: UsageBarView.DisplayState) -> CGFloat {
+        let base: CGFloat = 68
+        let showsResets = (state == .normal || state == .loading)
+            && items.contains(where: { !$0.resetShort.isEmpty })
+        guard showsResets else { return base }
+        let font = NSFont.monospacedDigitSystemFont(ofSize: 7, weight: .regular)
+        let textWidth = items.prefix(3)
+            .map { ($0.resetShort as NSString).size(withAttributes: [.font: font]).width }
+            .max() ?? 0
+        return min(96, base + textWidth.rounded(.up) + 2)
+    }
+
     private func tooltip(snapshot: UsageSnapshot) -> String {
-        var lines = snapshot.items.map { "\($0.label) — \($0.value) · \($0.percent)% · \($0.resetShort)" }
+        var lines = snapshot.items.map { "\($0.label) · \($0.percent)% · \($0.reset)" }
         if lines.isEmpty { lines = ["OpenCode usage"] }
         if model.isLoading { lines.append("Refreshing…") }
         if let error = snapshot.error, !error.isEmpty { lines.append(error) }
@@ -78,9 +98,16 @@ final class StatusItemController: NSObject, NSMenuDelegate {
 
         menu.removeAllItems()
 
-        if model.needsSetup {
-            addSecondary("No OpenCode cookie yet")
-            addAction("Enter Cookie…", action: #selector(settingsAction), symbol: "key")
+        let configured = model.connectionInfo != nil
+
+        if let name = model.connectionInfo {
+            addSecondary(name, color: .tertiaryLabelColor.withAlphaComponent(0.9))
+        } else {
+            addSecondary("OpenCode CLI not linked")
+        }
+
+        guard configured else {
+            addSecondary("Run the opencode CLI and connect this device.")
             menu.addItem(.separator())
             addFooter()
             return
@@ -103,11 +130,23 @@ final class StatusItemController: NSObject, NSMenuDelegate {
                 let title = "\(item.label)  \(bar) \(item.percent)%"
                 addBold(title)
 
-                var details: [String] = []
-                if !item.value.isEmpty { details.append(item.value) }
-                if !item.reset.isEmpty { details.append("resets in " + item.reset.lowercased()) }
-                if !details.isEmpty {
-                    addSecondary("  " + details.joined(separator: " · "))
+                if !item.reset.isEmpty {
+                    addSecondary("  \(item.reset)")
+                }
+            }
+
+            let budgets = model.snapshot.budgets
+            if !budgets.isEmpty {
+                menu.addItem(.separator())
+                addBold("Budgets")
+                for budget in budgets {
+                    let spent = String(format: "%.2f", budget.spent)
+                    let limit = String(format: "%.2f", budget.limit)
+                    var text = "  \(budget.name) — $\(spent) of $\(limit)"
+                    if !budget.resetsText.isEmpty {
+                        text += " · \(budget.resetsText.lowercased())"
+                    }
+                    addSecondary("  \(text)", color: secondaryColor(for: budget))
                 }
             }
         }
@@ -123,13 +162,17 @@ final class StatusItemController: NSObject, NSMenuDelegate {
         addFooter()
     }
 
+    private func secondaryColor(for budget: Budget) -> NSColor {
+        budget.percent >= 90 ? .systemRed : .secondaryLabelColor
+    }
+
     private func addFooter() {
         addAction("Refresh", action: #selector(refreshAction), key: "r", symbol: "arrow.clockwise")
         if model.isLoading {
             addSecondary("Refreshing…")
         }
         addAction("Settings…", action: #selector(settingsAction), key: ",", symbol: "gearshape")
-        addAction("Open Workspace Page", action: #selector(usagePageAction), symbol: "safari")
+        addAction("Open Usage Page", action: #selector(usagePageAction), symbol: "safari")
         menu.addItem(.separator())
         addAction("Quit", action: #selector(quitAction), key: "q", symbol: "power")
     }
@@ -221,7 +264,9 @@ final class StatusItemController: NSObject, NSMenuDelegate {
     }
 
     @objc private func usagePageAction() {
-        model.openWorkspacePage()
+        if !model.openActivityPage() {
+            openSettings()
+        }
     }
 
     @objc private func quitAction() {

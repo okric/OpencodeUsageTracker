@@ -74,9 +74,9 @@ final class UsageBarView: NSView {
         let barHeight: CGFloat = 4
         let gap: CGFloat = 3
         let topPad: CGFloat = 2
-        let leftPad: CGFloat = 6
-        let barWidth: CGFloat = 70
-        let textX = leftPad + barWidth + 6
+        let leftPad: CGFloat = 4
+        let barWidth: CGFloat = 60
+        let textX = leftPad + barWidth + 4
 
         for i in 0..<barCount {
             let item = items[i]
@@ -109,8 +109,8 @@ final class UsageBarView: NSView {
         let barHeight: CGFloat = 4
         let gap: CGFloat = 3
         let topPad: CGFloat = 2
-        let leftPad: CGFloat = 6
-        let barWidth: CGFloat = 70
+        let leftPad: CGFloat = 4
+        let barWidth: CGFloat = 60
         let color = stateColor ?? .systemGray
         for i in 0..<3 {
             let y = topPad + CGFloat(i) * (barHeight + gap)
@@ -123,8 +123,12 @@ final class UsageBarView: NSView {
     }
 
     override var intrinsicContentSize: NSSize {
-        NSSize(width: 120, height: 22)
+        NSSize(width: preferredWidth, height: 22)
     }
+
+    /// Width the controller should size the status item to; mirrors the
+    /// draw() layout: leftPad(4) + bars(60) + gap(4) + widest reset text + pad.
+    var preferredWidth: CGFloat { 68 }
 
     override func mouseDown(with event: NSEvent) {
         onOpenMenu?()
