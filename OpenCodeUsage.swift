@@ -78,7 +78,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let scriptPath: String
 
     override init() {
-        scriptPath = NSHomeDirectory() + "/WebstormProjects/OpencodeDashboard/index.js"
+        scriptPath = "/Users/you/Xcode Projects/OpencodeDashboard/index.js"
         super.init()
     }
 
