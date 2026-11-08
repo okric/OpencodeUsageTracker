@@ -61,7 +61,7 @@ create-dmg \
   "$DMG" "$STAGE_DIR"
 
 echo "== postprocess =="
-APP_NAME="$APP_NAME" "$ROOT/Scripts/postprocess-dmg.sh" "$DMG" "$ROOT/Scripts/dmg-background@2x.png"
+APP_NAME="$APP_NAME" "$ROOT/Scripts/postprocess-dmg.sh" "$DMG" "${APP_NAME} ${VERSION}" "$ROOT/Scripts/dmg-background@2x.png"
 
 echo "== verify (screenshot the mounted window) =="
 MOUNT=$(hdiutil attach "$DMG" | awk -F'\t' '/Volumes/{print $NF}')
