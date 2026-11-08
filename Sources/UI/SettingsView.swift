@@ -119,6 +119,15 @@ struct SettingsView: View {
         .pickerStyle(.menu)
 
         HStack {
+            if let updated = model.snapshot.updatedAt {
+                Text("Last updated \(updated.formatted(date: .omitted, time: .standard))")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            } else {
+                Spacer()
+            }
+
             Button("Refresh Now") {
                 model.refreshNow()
             }
@@ -127,12 +136,6 @@ struct SettingsView: View {
             if model.isLoading {
                 ProgressView().controlSize(.small)
             }
-        }
-
-        if let updated = model.snapshot.updatedAt {
-            Text("Last updated \(updated.formatted(date: .omitted, time: .standard))")
-                .font(.caption)
-                .foregroundStyle(.secondary)
         }
     }
 
