@@ -385,7 +385,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.opencode.dashboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.opencodezenusage.tracker;
 				PRODUCT_NAME = OpencodeDashboard;
 				SDKROOT = macosx;
 			};
@@ -408,7 +408,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.opencode.dashboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.opencodezenusage.tracker;
 				PRODUCT_NAME = OpencodeDashboard;
 				SDKROOT = macosx;
 			};
@@ -428,7 +428,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.opencode.dashboard.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.opencodezenusage.tracker.tests;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpencodeDashboard.app/Contents/MacOS/OpencodeDashboard";
@@ -449,7 +449,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.opencode.dashboard.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.opencodezenusage.tracker.tests;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpencodeDashboard.app/Contents/MacOS/OpencodeDashboard";
