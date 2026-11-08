@@ -20,6 +20,7 @@ struct OpencodeUsageTrackerApp {
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private var model: AppModel?
+    private var updater: UpdaterController?
     private var statusController: StatusItemController?
     private var settingsController: SettingsWindowController?
 
@@ -34,10 +35,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         let model = AppModel()
         self.model = model
+        let updater = UpdaterController()
+        self.updater = updater
         let settings = SettingsWindowController(model: model)
         self.settingsController = settings
         self.statusController = StatusItemController(
             model: model,
+            updater: updater,
             openSettings: { [weak settings] in settings?.show() })
 
         model.start()

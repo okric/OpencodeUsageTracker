@@ -19,6 +19,9 @@
 		1A2B3C4D000100000000001D /* Icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D000200000000001D /* Icon.xcassets */; };
 		1A2B3C4D0001000000000021 /* CLIConnectionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000021 /* CLIConnectionStoreTests.swift */; };
 		1A2B3C4D0001000000000022 /* UsageClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000022 /* UsageClientTests.swift */; };
+		1A2B3C4D0001000000000030 /* UpdaterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000030 /* UpdaterController.swift */; };
+		1A2B3C4D0001000000000031 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 1A2B3C4D000D000000000001 /* Sparkle */; };
+		1A2B3C4D0001000000000032 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 1A2B3C4D000D000000000001 /* Sparkle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,11 +45,31 @@
 		1A2B3C4D000200000000001B /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
 		1A2B3C4D000200000000001C /* UsageBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageBarView.swift; sourceTree = "<group>"; };
 		1A2B3C4D000200000000001D /* Icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icon.xcassets; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000030 /* UpdaterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdaterController.swift; sourceTree = "<group>"; };
 		1A2B3C4D0002000000000021 /* CLIConnectionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLIConnectionStoreTests.swift; sourceTree = "<group>"; };
 		1A2B3C4D0002000000000022 /* UsageClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageClientTests.swift; sourceTree = "<group>"; };
 		1A2B3C4D0003000000000010 /* OpencodeUsageTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpencodeUsageTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A2B3C4D0003000000000020 /* OpencodeUsageTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpencodeUsageTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1A2B3C4D000C000000000010 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A2B3C4D0001000000000031 /* Sparkle in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A2B3C4D000C000000000020 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A2B3C4D0001000000000032 /* Sparkle in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		1A2B3C4D0004000000000010 /* App */ = {
@@ -54,6 +77,7 @@
 			children = (
 				1A2B3C4D0002000000000017 /* AppModel.swift */,
 				1A2B3C4D0002000000000018 /* OpencodeUsageTrackerApp.swift */,
+				1A2B3C4D0002000000000030 /* UpdaterController.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -125,6 +149,7 @@
 			buildConfigurationList = 1A2B3C4D0008000000000010 /* Build configuration list for PBXNativeTarget "OpencodeUsageTracker" */;
 			buildPhases = (
 				1A2B3C4D0009000000000010 /* Sources */,
+				1A2B3C4D000C000000000010 /* Frameworks */,
 				1A2B3C4D000A000000000010 /* Resources */,
 			);
 			buildRules = (
@@ -133,6 +158,7 @@
 			);
 			name = OpencodeUsageTracker;
 			packageProductDependencies = (
+				1A2B3C4D000D000000000001 /* Sparkle */,
 			);
 			productName = OpencodeUsageTracker;
 			productReference = 1A2B3C4D0003000000000010 /* OpencodeUsageTracker.app */;
@@ -143,6 +169,7 @@
 			buildConfigurationList = 1A2B3C4D0008000000000020 /* Build configuration list for PBXNativeTarget "OpencodeUsageTrackerTests" */;
 			buildPhases = (
 				1A2B3C4D0009000000000020 /* Sources */,
+				1A2B3C4D000C000000000020 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -151,6 +178,7 @@
 			);
 			name = OpencodeUsageTrackerTests;
 			packageProductDependencies = (
+				1A2B3C4D000D000000000001 /* Sparkle */,
 			);
 			productName = OpencodeUsageTrackerTests;
 			productReference = 1A2B3C4D0003000000000020 /* OpencodeUsageTrackerTests.xctest */;
@@ -182,6 +210,9 @@
 			);
 			mainGroup = 1A2B3C4D0004000000000016;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1A2B3C4D000D000000000010 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1A2B3C4D0004000000000015 /* Products */;
 			projectDirPath = "";
@@ -193,8 +224,7 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		1A2B3C4D000A000000000010 /* Resources */ = {
+/* Begin PBXResourcesBuildPhase section */		1A2B3C4D000A000000000010 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -213,6 +243,7 @@
 				1A2B3C4D0001000000000013 /* CLIConnectionStore.swift in Sources */,
 				1A2B3C4D0001000000000014 /* Models.swift in Sources */,
 				1A2B3C4D0001000000000018 /* OpencodeUsageTrackerApp.swift in Sources */,
+				1A2B3C4D0001000000000030 /* UpdaterController.swift in Sources */,
 				1A2B3C4D0001000000000015 /* UsageClient.swift in Sources */,
 				1A2B3C4D0001000000000019 /* SettingsView.swift in Sources */,
 				1A2B3C4D000100000000001A /* SettingsWindowController.swift in Sources */,
@@ -389,6 +420,7 @@
 				);
 				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.opencodezenusage.tracker;
+				PRODUCT_MODULE_NAME = OpencodeUsageTracker;
 				PRODUCT_NAME = "Opencode Usage Tracker";
 				SDKROOT = macosx;
 			};
@@ -413,6 +445,7 @@
 				);
 				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.opencodezenusage.tracker;
+				PRODUCT_MODULE_NAME = OpencodeUsageTracker;
 				PRODUCT_NAME = "Opencode Usage Tracker";
 				SDKROOT = macosx;
 			};
@@ -491,6 +524,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1A2B3C4D000D000000000010 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1A2B3C4D000D000000000001 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A2B3C4D000D000000000010 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1A2B3C4D0007000000000010 /* Project object */;
 }

@@ -5,6 +5,7 @@ import Combine
 final class StatusItemController: NSObject, NSMenuDelegate {
     private let model: AppModel
     private let openSettings: () -> Void
+    private let updater: UpdaterController?
     private let statusItem: NSStatusItem
     private let view: UsageBarView
     private let menu = NSMenu()
@@ -13,8 +14,9 @@ final class StatusItemController: NSObject, NSMenuDelegate {
     private var isMenuOpen = false
     private var needsMenuRebuild = false
 
-    init(model: AppModel, openSettings: @escaping () -> Void) {
+    init(model: AppModel, updater: UpdaterController?, openSettings: @escaping () -> Void) {
         self.model = model
+        self.updater = updater
         self.openSettings = openSettings
         self.statusItem = NSStatusBar.system.statusItem(withLength: 68)
         self.view = UsageBarView(frame: NSRect(x: 0, y: 0, width: 68, height: 22))
@@ -181,6 +183,13 @@ final class StatusItemController: NSObject, NSMenuDelegate {
         if model.isLoading {
             addSecondary("Refreshing…")
         }
+        if let updater {
+            addAction(
+                "Check for Updates…",
+                action: #selector(checkForUpdatesAction),
+                symbol: "arrow.triangle.2.circlepath",
+                isEnabled: updater.canCheckForUpdates)
+        }
         addAction("Settings…", action: #selector(settingsAction), key: ",", symbol: "gearshape")
         addAction("Open Usage Page", action: #selector(usagePageAction), symbol: "safari")
         menu.addItem(.separator())
@@ -241,10 +250,12 @@ final class StatusItemController: NSObject, NSMenuDelegate {
         _ title: String,
         action: Selector,
         key: String = "",
-        symbol: String? = nil
+        symbol: String? = nil,
+        isEnabled: Bool = true
     ) {
         let item = NSMenuItem(title: title, action: action, keyEquivalent: key)
         item.target = self
+        item.isEnabled = isEnabled
         if let symbol {
             item.image = NSImage(systemSymbolName: symbol, accessibilityDescription: nil)
         }
@@ -282,6 +293,10 @@ final class StatusItemController: NSObject, NSMenuDelegate {
 
     @objc private func settingsAction() {
         openSettings()
+    }
+
+    @objc private func checkForUpdatesAction() {
+        updater?.checkForUpdates()
     }
 
     @objc private func usagePageAction() {
