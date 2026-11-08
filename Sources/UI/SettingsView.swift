@@ -3,7 +3,6 @@ import SwiftUI
 struct SettingsView: View {
     @ObservedObject var model: AppModel
 
-    @State private var workspaceMessage: String?
     @State private var hasBeenVisible = false
 
     var body: some View {
@@ -11,7 +10,7 @@ struct SettingsView: View {
             Section {
                 accountContent
             } header: {
-                Text("OpenCode Account")
+                Text("Account")
             }
 
             Section {
@@ -33,7 +32,7 @@ struct SettingsView: View {
             }
         }
         .formStyle(.grouped)
-        .frame(width: 560)
+        .frame(width: 540)
         .fixedSize(horizontal: false, vertical: true)
         .onAppear {
             guard !hasBeenVisible else { return }
@@ -55,17 +54,11 @@ struct SettingsView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(name)
                         .font(.headline)
-                    Text("via the OpenCode CLI")
+                    Text("read live from the OpenCode CLI's local store — nothing is copied or stored")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
                 Spacer()
-                Button("Open Usage Page") {
-                    if !model.openActivityPage() {
-                        workspaceMessage = "Could not build the workspace URL for this account."
-                    }
-                }
-                .buttonStyle(.bordered)
             }
         } else {
             Label("OpenCode CLI not linked", systemImage: "xmark.seal")
@@ -87,13 +80,6 @@ struct SettingsView: View {
                 }
             }
             .pickerStyle(.menu)
-        }
-
-        if let workspaceMessage {
-            Text(workspaceMessage)
-                .font(.caption)
-                .foregroundStyle(.red)
-                .lineLimit(2)
         }
 
         if let statusError = model.snapshot.error {
@@ -185,17 +171,15 @@ struct SettingsView: View {
 
     @ViewBuilder
     private var privacyContent: some View {
-        Text("This app keeps no secrets of its own. Credentials live in the OpenCode CLI's local store; the app reads the current device-link token in memory just before each request. Nothing is written to files, plists, or logs, and there is no telemetry.")
+        Text("This app stores no secrets of its own. The OpenCode CLI login is read live from the CLI's local credential store only at request time; there are no Keychain items, no `.env`, no plist secrets, no logging of credentials, and no telemetry.")
             .font(.caption)
             .foregroundStyle(.secondary)
 
-        Text("Usage comes from the same console endpoints the opencode CLI uses (zen/go/v1/usage and workspace budget policies). The sk- API keys shown in the CLI's auth file are not used and never leave your machine.")
+        Text("The CLI's credential store is never watched or written. Renew the login from the OpenCode CLI itself and refresh here. Usage comes from the same console endpoints the CLI uses (zen/go/v1/usage and workspace budget policies); the sk- API keys in the CLI's auth file are not used and never leave your machine.")
             .font(.caption2)
             .foregroundStyle(.tertiary)
 
-        Text("The token is renewed by the CLI itself; if it expires between refreshes, re-link from the CLI and refresh here.")
-            .font(.caption2)
-            .foregroundStyle(.tertiary)
+        Link("Project page: github.com/okric/OpencodeUsageTracker", destination: URL(string: "https://github.com/okric/OpencodeUsageTracker")!)
     }
 }
 
