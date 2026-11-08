@@ -389,7 +389,7 @@
 				);
 				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.opencodezenusage.tracker;
-				PRODUCT_NAME = OpencodeUsageTracker;
+				PRODUCT_NAME = "Opencode Usage Tracker";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -413,7 +413,7 @@
 				);
 				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.opencodezenusage.tracker;
-				PRODUCT_NAME = OpencodeUsageTracker;
+				PRODUCT_NAME = "Opencode Usage Tracker";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -435,7 +435,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.opencodezenusage.tracker.tests;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpencodeUsageTracker.app/Contents/MacOS/OpencodeUsageTracker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Opencode Usage Tracker.app/Contents/MacOS/Opencode Usage Tracker";
 			};
 			name = Debug;
 		};
@@ -456,7 +456,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.opencodezenusage.tracker.tests;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpencodeUsageTracker.app/Contents/MacOS/OpencodeUsageTracker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Opencode Usage Tracker.app/Contents/MacOS/Opencode Usage Tracker";
 			};
 			name = Release;
 		};

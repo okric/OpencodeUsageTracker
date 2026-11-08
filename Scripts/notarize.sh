@@ -5,7 +5,8 @@
 # README), and create-dmg (brew install create-dmg).
 set -euo pipefail
 
-APP_NAME="OpencodeUsageTracker"
+APP_NAME="OpencodeUsageTracker"          # project, scheme, repo
+APP_BUNDLE="Opencode Usage Tracker"      # product name, i.e. the .app filename
 IDENTITY="Developer ID Application: Ricardo Oliveira (2SD8E9M8T7)"
 KEYCHAIN_PROFILE="okric-notary"
 REPO="okric/${APP_NAME}"
@@ -29,7 +30,7 @@ xcodebuild -project "$ROOT/${APP_NAME}.xcodeproj" \
   -destination 'platform=macOS' -derivedDataPath "$ROOT/build/release" build \
   | tail -1
 
-APP="$ROOT/build/release/Build/Products/Release/${APP_NAME}.app"
+APP="$ROOT/build/release/Build/Products/Release/${APP_BUNDLE}.app"
 STAGE="$WORK/${APP_NAME}"
 cp -R "$APP" "$STAGE"
 
@@ -48,20 +49,20 @@ spctl -a -t exec -vv "$STAGE"
 echo "== DMG =="
 STAGE_DIR="$WORK/${APP_NAME} ${VERSION}"
 mkdir -p "$STAGE_DIR"
-mv "$STAGE" "$STAGE_DIR/${APP_NAME}.app"
+mv "$STAGE" "$STAGE_DIR/${APP_BUNDLE}.app"
 DMG="$WORK/${APP_NAME}-${VERSION}.dmg"
 create-dmg \
-  --volname "${APP_NAME} ${VERSION}" \
+  --volname "${APP_BUNDLE} ${VERSION}" \
   --background "$ROOT/Scripts/dmg-background.png" \
   --window-size 800 470 \
   --icon-size 128 \
-  --icon "${APP_NAME}.app" 200 280 \
+  --icon "${APP_BUNDLE}.app" 200 280 \
   --app-drop-link 600 280 \
-  --hide-extension "${APP_NAME}.app" \
+  --hide-extension "${APP_BUNDLE}.app" \
   "$DMG" "$STAGE_DIR"
 
 echo "== postprocess =="
-APP_NAME="$APP_NAME" "$ROOT/Scripts/postprocess-dmg.sh" "$DMG" "${APP_NAME} ${VERSION}" "$ROOT/Scripts/dmg-background@2x.png"
+APP_NAME="$APP_NAME" "$ROOT/Scripts/postprocess-dmg.sh" "$DMG" "${APP_BUNDLE} ${VERSION}" "$ROOT/Scripts/dmg-background@2x.png" "${APP_BUNDLE}.app"
 
 echo "== verify (screenshot the mounted window) =="
 MOUNT=$(hdiutil attach "$DMG" | awk -F'\t' '/Volumes/{print $NF}')
@@ -82,7 +83,7 @@ echo "== publish =="
 if ! gh release view "v${VERSION}" --repo "$REPO" >/dev/null 2>&1; then
     gh release create "v${VERSION}" \
         --repo "$REPO" \
-        --title "${APP_NAME} ${VERSION}" \
+        --title "${APP_BUNDLE} ${VERSION}" \
         --notes "Universal binary, hardened runtime, Developer ID signed and Apple-notarized. Staged manually, see release notes below."
 fi
 gh release upload "v${VERSION}" --repo "$REPO" "$DMG" --clobber
