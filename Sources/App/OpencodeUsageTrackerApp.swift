@@ -3,7 +3,7 @@ import Darwin
 import ServiceManagement
 
 @main
-struct OpencodeDashboardApp {
+struct OpencodeUsageTrackerApp {
     static func main() {
         MainActor.assumeIsolated {
             let app = NSApplication.shared

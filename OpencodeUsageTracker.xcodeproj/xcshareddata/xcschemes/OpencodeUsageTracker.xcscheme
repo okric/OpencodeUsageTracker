@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1A2B3C4D0005000000000010"
-               BuildableName = "OpencodeDashboard.app"
-               BlueprintName = "OpencodeDashboard"
-               ReferencedContainer = "container:OpencodeDashboard.xcodeproj">
+               BuildableName = "OpencodeUsageTracker.app"
+               BlueprintName = "OpencodeUsageTracker"
+               ReferencedContainer = "container:OpencodeUsageTracker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1A2B3C4D0005000000000020"
-               BuildableName = "OpencodeDashboardTests.xctest"
-               BlueprintName = "OpencodeDashboardTests"
-               ReferencedContainer = "container:OpencodeDashboard.xcodeproj">
+               BuildableName = "OpencodeUsageTrackerTests.xctest"
+               BlueprintName = "OpencodeUsageTrackerTests"
+               ReferencedContainer = "container:OpencodeUsageTracker.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1A2B3C4D0005000000000010"
-            BuildableName = "OpencodeDashboard.app"
-            BlueprintName = "OpencodeDashboard"
-            ReferencedContainer = "container:OpencodeDashboard.xcodeproj">
+            BuildableName = "OpencodeUsageTracker.app"
+            BlueprintName = "OpencodeUsageTracker"
+            ReferencedContainer = "container:OpencodeUsageTracker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -73,9 +73,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1A2B3C4D0005000000000010"
-            BuildableName = "OpencodeDashboard.app"
-            BlueprintName = "OpencodeDashboard"
-            ReferencedContainer = "container:OpencodeDashboard.xcodeproj">
+            BuildableName = "OpencodeUsageTracker.app"
+            BlueprintName = "OpencodeUsageTracker"
+            ReferencedContainer = "container:OpencodeUsageTracker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

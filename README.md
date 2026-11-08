@@ -1,4 +1,4 @@
-# OpenCode Usage (OpencodeDashboard)
+# OpenCode Usage (OpencodeUsageTracker)
 
 A native macOS menu bar app that shows your OpenCode Go usage with no Node.js
 dependencies and no browser cookie. Sits in the menu bar as three compact bars
@@ -36,7 +36,7 @@ endpoints — a device link (`opencode` → `/connect`) is required.
 2. Build and run with Xcode, or:
 
    ```
-   xcodebuild -project OpencodeDashboard.xcodeproj -scheme OpencodeDashboard build
+   xcodebuild -project OpencodeUsageTracker.xcodeproj -scheme OpencodeUsageTracker build
    ```
 
 3. If the CLI has several workspaces, pick one in Settings.
@@ -44,7 +44,7 @@ endpoints — a device link (`opencode` → `/connect`) is required.
 ## Tests
 
 ```
-xcodebuild -project OpencodeDashboard.xcodeproj -scheme OpencodeDashboard test
+xcodebuild -project OpencodeUsageTracker.xcodeproj -scheme OpencodeUsageTracker test
 ```
 
 ## Icon

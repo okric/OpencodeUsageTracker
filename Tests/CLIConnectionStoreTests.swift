@@ -1,5 +1,5 @@
 import XCTest
-@testable import OpencodeDashboard
+@testable import OpencodeUsageTracker
 
 final class CLIConnectionStoreTests: XCTestCase {
     func testCredentialWithOrgMetadata() throws {

@@ -1,5 +1,5 @@
 import XCTest
-@testable import OpencodeDashboard
+@testable import OpencodeUsageTracker
 
 final class UsageClientTests: XCTestCase {
     private let zenJSON: [String: Any] = [
