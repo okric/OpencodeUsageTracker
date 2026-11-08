@@ -376,6 +376,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2SD8E9M8T7;
 				INFOPLIST_FILE = Resources/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -383,7 +384,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				CURRENT_PROJECT_VERSION = 1;
 				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.opencode.dashboard;
 				PRODUCT_NAME = OpencodeDashboard;
@@ -399,6 +399,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2SD8E9M8T7;
 				INFOPLIST_FILE = Resources/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
@@ -406,7 +407,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				CURRENT_PROJECT_VERSION = 1;
 				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.opencode.dashboard;
 				PRODUCT_NAME = OpencodeDashboard;

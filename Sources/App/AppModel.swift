@@ -315,7 +315,7 @@ final class AppModel: ObservableObject {
     #if DEBUG
     static func preview() -> AppModel {
         let model = AppModel(store: OpenCodeCLIStore(home: URL(fileURLWithPath: "/nonexistent")))
-        model.connectionInfo = "you@opencode.example — Default Workspace"
+        model.connectionInfo = "you@example.com — Default Workspace"
         model.workspaces = [WorkspaceOption(orgID: "wrk_01ExampleWorkspaceID12345678", name: "Default Workspace")]
         model.selectedOrgID = "wrk_01ExampleWorkspaceID12345678"
 
