@@ -162,8 +162,18 @@ final class StatusItemController: NSObject, NSMenuDelegate {
         addFooter()
     }
 
-    private func secondaryColor(for budget: Budget) -> NSColor {
-        budget.percent >= 90 ? .systemRed : .secondaryLabelColor
+    private func secondaryColor(for budget: Budget) -> NSColor? {
+        switch budget.percent {
+        case 90...: return systemRedInk
+        case 65..<90: return .systemOrange
+        default: return nil // default secondary ink
+        }
+    }
+
+    private var systemRedInk: NSColor {
+        isDarkMenu
+            ? NSColor(red: 1.0, green: 0.49, blue: 0.40, alpha: 1)
+            : NSColor(red: 0.72, green: 0.11, blue: 0.11, alpha: 1)
     }
 
     private func addFooter() {
@@ -179,6 +189,15 @@ final class StatusItemController: NSObject, NSMenuDelegate {
 
     // MARK: Menu item helpers
 
+    /// The menu material is translucent, so use explicit adaptive "ink" colors
+    /// instead of labelColor/secondaryLabelColor to keep the pop-down readable.
+    private var isDarkMenu: Bool {
+        view.effectiveAppearance.bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
+    }
+
+    private var primaryInk: NSColor { isDarkMenu ? .white : .black }
+    private var secondaryInk: NSColor { primaryInk.withAlphaComponent(isDarkMenu ? 0.92 : 0.80) }
+
     private func addBold(_ title: String) {
         let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
         item.isEnabled = false
@@ -186,19 +205,19 @@ final class StatusItemController: NSObject, NSMenuDelegate {
             string: title,
             attributes: [
                 .font: NSFont.monospacedDigitSystemFont(ofSize: 13, weight: .semibold),
-                .foregroundColor: NSColor.labelColor,
+                .foregroundColor: primaryInk,
             ])
         menu.addItem(item)
     }
 
-    private func addSecondary(_ title: String, color: NSColor = .secondaryLabelColor) {
+    private func addSecondary(_ title: String, color: NSColor? = nil) {
         let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
         item.isEnabled = false
         item.attributedTitle = NSAttributedString(
             string: title,
             attributes: [
                 .font: NSFont.systemFont(ofSize: 11),
-                .foregroundColor: color,
+                .foregroundColor: color ?? secondaryInk,
             ])
         menu.addItem(item)
     }
@@ -211,7 +230,9 @@ final class StatusItemController: NSObject, NSMenuDelegate {
             string: title,
             attributes: [
                 .font: NSFont.systemFont(ofSize: 11),
-                .foregroundColor: NSColor.systemRed,
+                .foregroundColor: isDarkMenu
+                    ? NSColor(red: 1.0, green: 0.49, blue: 0.40, alpha: 1) // readable red on dark material
+                    : NSColor(red: 0.72, green: 0.11, blue: 0.11, alpha: 1),
             ])
         menu.addItem(item)
     }

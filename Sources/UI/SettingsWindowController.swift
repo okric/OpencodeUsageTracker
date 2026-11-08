@@ -13,10 +13,13 @@ final class SettingsWindowController {
     func show() {
         if window == nil {
             let hosting = NSHostingController(rootView: SettingsView(model: model))
+            // The window follows the SwiftUI ideal size, so the form never
+            // scrolls as sections appear/disappear (workspace picker, messages).
+            hosting.sizingOptions = [.preferredContentSize]
             let window = NSWindow(contentViewController: hosting)
             window.title = "OpenCode Usage"
             window.styleMask = [.titled, .closable, .miniaturizable, .resizable]
-            window.minSize = NSSize(width: 520, height: 520)
+            window.minSize = NSSize(width: 540, height: 380)
             window.isReleasedWhenClosed = false
             window.center()
             window.setFrameAutosaveName("OpenCodeUsageSettingsWindow")

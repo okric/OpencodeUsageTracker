@@ -33,7 +33,8 @@ struct SettingsView: View {
             }
         }
         .formStyle(.grouped)
-        .frame(width: 540, height: 600)
+        .frame(width: 560)
+        .fixedSize(horizontal: false, vertical: true)
         .onAppear {
             guard !hasBeenVisible else { return }
             hasBeenVisible = true
