@@ -387,7 +387,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.2.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.opencodezenusage.tracker;
 				PRODUCT_NAME = OpencodeUsageTracker;
 				SDKROOT = macosx;
@@ -411,7 +411,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.2.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.opencodezenusage.tracker;
 				PRODUCT_NAME = OpencodeUsageTracker;
 				SDKROOT = macosx;
