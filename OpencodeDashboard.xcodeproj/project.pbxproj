@@ -1,0 +1,500 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1A2B3C4D0001000000000012 /* EnvImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000012 /* EnvImporter.swift */; };
+		1A2B3C4D0001000000000013 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000013 /* KeychainStore.swift */; };
+		1A2B3C4D0001000000000014 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000014 /* Models.swift */; };
+		1A2B3C4D0001000000000015 /* OpenCodeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000015 /* OpenCodeClient.swift */; };
+		1A2B3C4D0001000000000016 /* UsageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000016 /* UsageParser.swift */; };
+		1A2B3C4D0001000000000017 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000017 /* AppModel.swift */; };
+		1A2B3C4D0001000000000018 /* OpencodeDashboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000018 /* OpencodeDashboardApp.swift */; };
+		1A2B3C4D0001000000000019 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000019 /* SettingsView.swift */; };
+		1A2B3C4D000100000000001A /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D000200000000001A /* SettingsWindowController.swift */; };
+		1A2B3C4D000100000000001B /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D000200000000001B /* StatusItemController.swift */; };
+		1A2B3C4D000100000000001C /* UsageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D000200000000001C /* UsageBarView.swift */; };
+		1A2B3C4D000100000000001D /* Icon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D000200000000001D /* Icon.xcassets */; };
+		1A2B3C4D0001000000000021 /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000021 /* KeychainTests.swift */; };
+		1A2B3C4D0001000000000022 /* UsageParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D0002000000000022 /* UsageParserTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1A2B3C4D0006000000000010 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A2B3C4D0007000000000010 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A2B3C4D0005000000000010;
+			remoteInfo = OpencodeDashboard;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1A2B3C4D0002000000000012 /* EnvImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvImporter.swift; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000013 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000014 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000015 /* OpenCodeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenCodeClient.swift; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000016 /* UsageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageParser.swift; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000017 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000018 /* OpencodeDashboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpencodeDashboardApp.swift; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000019 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		1A2B3C4D000200000000001A /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
+		1A2B3C4D000200000000001B /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
+		1A2B3C4D000200000000001C /* UsageBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageBarView.swift; sourceTree = "<group>"; };
+		1A2B3C4D000200000000001D /* Icon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icon.xcassets; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000021 /* KeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTests.swift; sourceTree = "<group>"; };
+		1A2B3C4D0002000000000022 /* UsageParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageParserTests.swift; sourceTree = "<group>"; };
+		1A2B3C4D0003000000000010 /* OpencodeDashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpencodeDashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A2B3C4D0003000000000020 /* OpencodeDashboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpencodeDashboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1A2B3C4D0004000000000010 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				1A2B3C4D0002000000000017 /* AppModel.swift */,
+				1A2B3C4D0002000000000018 /* OpencodeDashboardApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		1A2B3C4D0004000000000011 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				1A2B3C4D0002000000000012 /* EnvImporter.swift */,
+				1A2B3C4D0002000000000013 /* KeychainStore.swift */,
+				1A2B3C4D0002000000000014 /* Models.swift */,
+				1A2B3C4D0002000000000015 /* OpenCodeClient.swift */,
+				1A2B3C4D0002000000000016 /* UsageParser.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		1A2B3C4D0004000000000012 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				1A2B3C4D0002000000000019 /* SettingsView.swift */,
+				1A2B3C4D000200000000001A /* SettingsWindowController.swift */,
+				1A2B3C4D000200000000001B /* StatusItemController.swift */,
+				1A2B3C4D000200000000001C /* UsageBarView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		1A2B3C4D0004000000000013 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				1A2B3C4D0004000000000010 /* App */,
+				1A2B3C4D0004000000000011 /* Core */,
+				1A2B3C4D0004000000000012 /* UI */,
+				1A2B3C4D000200000000001D /* Icon.xcassets */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		1A2B3C4D0004000000000014 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				1A2B3C4D0002000000000021 /* KeychainTests.swift */,
+				1A2B3C4D0002000000000022 /* UsageParserTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		1A2B3C4D0004000000000015 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1A2B3C4D0003000000000010 /* OpencodeDashboard.app */,
+				1A2B3C4D0003000000000020 /* OpencodeDashboardTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1A2B3C4D0004000000000016 = {
+			isa = PBXGroup;
+			children = (
+				1A2B3C4D0004000000000013 /* Sources */,
+				1A2B3C4D0004000000000014 /* Tests */,
+				1A2B3C4D0004000000000015 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1A2B3C4D0005000000000010 /* OpencodeDashboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A2B3C4D0008000000000010 /* Build configuration list for PBXNativeTarget "OpencodeDashboard" */;
+			buildPhases = (
+				1A2B3C4D0009000000000010 /* Sources */,
+				1A2B3C4D000A000000000010 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpencodeDashboard;
+			packageProductDependencies = (
+			);
+			productName = OpencodeDashboard;
+			productReference = 1A2B3C4D0003000000000010 /* OpencodeDashboard.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1A2B3C4D0005000000000020 /* OpencodeDashboardTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A2B3C4D0008000000000020 /* Build configuration list for PBXNativeTarget "OpencodeDashboardTests" */;
+			buildPhases = (
+				1A2B3C4D0009000000000020 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A2B3C4D0006000000000020 /* PBXTargetDependency */,
+			);
+			name = OpencodeDashboardTests;
+			packageProductDependencies = (
+			);
+			productName = OpencodeDashboardTests;
+			productReference = 1A2B3C4D0003000000000020 /* OpencodeDashboardTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1A2B3C4D0007000000000010 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					1A2B3C4D0005000000000010 = {
+						ProvisioningStyle = Automatic;
+					};
+					1A2B3C4D0005000000000020 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 1A2B3C4D0008000000000030 /* Build configuration list for PBXProject "OpencodeDashboard" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 1A2B3C4D0004000000000016;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 1A2B3C4D0004000000000015 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1A2B3C4D0005000000000010 /* OpencodeDashboard */,
+				1A2B3C4D0005000000000020 /* OpencodeDashboardTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1A2B3C4D000A000000000010 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A2B3C4D000100000000001D /* Icon.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1A2B3C4D0009000000000010 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A2B3C4D0001000000000017 /* AppModel.swift in Sources */,
+				1A2B3C4D0001000000000012 /* EnvImporter.swift in Sources */,
+				1A2B3C4D0001000000000013 /* KeychainStore.swift in Sources */,
+				1A2B3C4D0001000000000014 /* Models.swift in Sources */,
+				1A2B3C4D0001000000000018 /* OpencodeDashboardApp.swift in Sources */,
+				1A2B3C4D0001000000000015 /* OpenCodeClient.swift in Sources */,
+				1A2B3C4D0001000000000019 /* SettingsView.swift in Sources */,
+				1A2B3C4D000100000000001A /* SettingsWindowController.swift in Sources */,
+				1A2B3C4D000100000000001B /* StatusItemController.swift in Sources */,
+				1A2B3C4D000100000000001C /* UsageBarView.swift in Sources */,
+				1A2B3C4D0001000000000016 /* UsageParser.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A2B3C4D0009000000000020 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A2B3C4D0001000000000021 /* KeychainTests.swift in Sources */,
+				1A2B3C4D0001000000000022 /* UsageParserTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1A2B3C4D0006000000000020 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A2B3C4D0005000000000010 /* OpencodeDashboard */;
+			targetProxy = 1A2B3C4D0006000000000010 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1A2B3C4D000B000000000010 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1A2B3C4D000B000000000011 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		1A2B3C4D000B000000000020 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2SD8E9M8T7;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				CURRENT_PROJECT_VERSION = 1;
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.opencode.dashboard;
+				PRODUCT_NAME = OpencodeDashboard;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1A2B3C4D000B000000000021 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2SD8E9M8T7;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				CURRENT_PROJECT_VERSION = 1;
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.opencode.dashboard;
+				PRODUCT_NAME = OpencodeDashboard;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1A2B3C4D000B000000000030 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2SD8E9M8T7;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.opencode.dashboard.tests;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpencodeDashboard.app/Contents/MacOS/OpencodeDashboard";
+			};
+			name = Debug;
+		};
+		1A2B3C4D000B000000000031 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 2SD8E9M8T7;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.opencode.dashboard.tests;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OpencodeDashboard.app/Contents/MacOS/OpencodeDashboard";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1A2B3C4D0008000000000010 /* Build configuration list for PBXNativeTarget "OpencodeDashboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A2B3C4D000B000000000020 /* Debug */,
+				1A2B3C4D000B000000000021 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		1A2B3C4D0008000000000020 /* Build configuration list for PBXNativeTarget "OpencodeDashboardTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A2B3C4D000B000000000030 /* Debug */,
+				1A2B3C4D000B000000000031 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		1A2B3C4D0008000000000030 /* Build configuration list for PBXProject "OpencodeDashboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A2B3C4D000B000000000010 /* Debug */,
+				1A2B3C4D000B000000000011 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1A2B3C4D0007000000000010 /* Project object */;
+}
